@@ -498,21 +498,4 @@ Wire Wire Line
 Connection ~ 4700 3650
 Text Notes 1750 4800 0    60   ~ 0
 Decoupling
-Text HLabel 6000 3100 2    60   Input ~ 0
-Inverter_Return
-$Comp
-L GND #PWR?
-U 1 1 570578C9
-P 5900 3200
-F 0 "#PWR?" H 5900 2950 50  0001 C CNN
-F 1 "GND" H 5900 3050 50  0000 C CNN
-F 2 "" H 5900 3200 50  0000 C CNN
-F 3 "" H 5900 3200 50  0000 C CNN
-	1    5900 3200
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6000 3100 5900 3100
-Wire Wire Line
-	5900 3100 5900 3200
 $EndSCHEMATC

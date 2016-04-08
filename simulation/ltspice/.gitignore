@@ -1,0 +1,5 @@
+#ignore LTSpice generated simulation files
+*.log
+*.raw
+*.plt
+

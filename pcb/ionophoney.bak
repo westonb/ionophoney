@@ -44,47 +44,103 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Sheet
-S 1200 3900 1400 1400
+S 1200 1300 1400 1400
 U 57033973
 F0 "Power Supply" 60
 F1 "power_supply.sch" 60
-F2 "Supply_Current_Sense" I R 2600 4100 60 
+F2 "Supply_Current_Sense" I R 2600 1500 60 
 $EndSheet
 $Sheet
-S 1200 5600 1400 1400
+S 1200 3100 1400 1400
 U 5703397E
 F0 "RF" 60
 F1 "rf.sch" 60
-F2 "HI" I R 2600 5800 60 
-F3 "LI" I R 2600 5900 60 
-F4 "Inverter_Out" I R 2600 6100 60 
-F5 "Inverter_Return" I R 2600 6200 60 
+F2 "HI" I R 2600 3300 60 
+F3 "LI" I R 2600 3400 60 
+F4 "Inverter_Out" I R 2600 3600 60 
 $EndSheet
 $Sheet
-S 2800 5600 1400 1400
+S 3800 3100 1400 1400
 U 57033981
 F0 "Control" 60
 F1 "control.sch" 60
-F2 "FET_H" I R 4200 5700 60 
-F3 "FET_L" I R 4200 5800 60 
-F4 "RF_Current_Sense" I R 4200 6000 60 
-F5 "Supply_Current_Sense" I R 4200 6300 60 
-F6 "RF_Current_Phase" I R 4200 6100 60 
+F2 "FET_H" I R 5200 3200 60 
+F3 "FET_L" I R 5200 3300 60 
+F4 "RF_Current_Sense" I R 5200 3500 60 
+F5 "Supply_Current_Sense" I R 5200 3800 60 
+F6 "RF_Current_Phase" I R 5200 3600 60 
 $EndSheet
 $Sheet
-S 2900 3900 1300 1400
+S 3800 1300 1400 1400
 U 57033984
 F0 "Measurement" 60
 F1 "measurement.sch" 60
-F2 "Current_Phase" I R 4200 4300 60 
-F3 "RF_Current_Sense" I R 4200 4100 60 
+F2 "RF_Current_Sense" I R 5200 1500 60 
+F3 "RF_Current_Phase" I R 5200 1700 60 
+F4 "Inverter_Return" I R 5200 1900 60 
 $EndSheet
 $Sheet
-S 4400 5600 1400 1400
+S 6400 1300 1400 1400
 U 57056E8A
 F0 "Output Network" 60
 F1 "output_network.sch" 60
-F2 "Inverter_Out" I R 5800 5800 60 
-F3 "Inverter_Return" I R 5800 5900 60 
+F2 "Inverter_Out" I R 7800 1500 60 
+F3 "Inverter_Return" I R 7800 1600 60 
 $EndSheet
+Wire Wire Line
+	2600 3300 2700 3300
+Wire Wire Line
+	2600 3400 2700 3400
+Wire Wire Line
+	2600 3600 2700 3600
+Wire Wire Line
+	2600 1500 2700 1500
+Wire Wire Line
+	5200 1500 5300 1500
+Wire Wire Line
+	5200 1700 5300 1700
+Wire Wire Line
+	5200 3200 5300 3200
+Wire Wire Line
+	5200 3300 5300 3300
+Wire Wire Line
+	5200 3500 5300 3500
+Wire Wire Line
+	5200 3600 5300 3600
+Wire Wire Line
+	5200 3800 5300 3800
+Wire Wire Line
+	7800 1500 7900 1500
+Wire Wire Line
+	7800 1600 7900 1600
+Text Label 2700 1500 0    60   ~ 0
+Supply_Current
+Text Label 2700 3300 0    60   ~ 0
+FET_H
+Text Label 2700 3400 0    60   ~ 0
+FET_L
+Text Label 5300 1500 0    60   ~ 0
+RF_Current
+Text Label 5300 1700 0    60   ~ 0
+RF_Phase
+Text Label 5300 3200 0    60   ~ 0
+FET_H
+Text Label 5300 3300 0    60   ~ 0
+FET_L
+Text Label 5300 3500 0    60   ~ 0
+RF_Current
+Text Label 5300 3600 0    60   ~ 0
+RF_Phase
+Text Label 5300 3800 0    60   ~ 0
+Supply_Current
+Text Label 2700 3600 0    60   ~ 0
+Inverter_Out
+Text Label 7900 1500 0    60   ~ 0
+Inverter_Out
+Text Label 7900 1600 0    60   ~ 0
+Inverter_Return
+Wire Wire Line
+	5200 1900 5300 1900
+Text Label 5300 1900 0    60   ~ 0
+Inverter_Return
 $EndSCHEMATC

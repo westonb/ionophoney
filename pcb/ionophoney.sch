@@ -58,7 +58,6 @@ F1 "rf.sch" 60
 F2 "HI" I R 2600 3300 60 
 F3 "LI" I R 2600 3400 60 
 F4 "Inverter_Out" I R 2600 3600 60 
-F5 "Inverter_Return" I R 2600 3700 60 
 $EndSheet
 $Sheet
 S 3800 3100 1400 1400
@@ -78,8 +77,7 @@ F0 "Measurement" 60
 F1 "measurement.sch" 60
 F2 "RF_Current_Sense" I R 5200 1500 60 
 F3 "RF_Current_Phase" I R 5200 1700 60 
-F4 "Inverter_A" I R 5200 2000 60 
-F5 "Inverter_B" I R 5200 2100 60 
+F4 "Inverter_Return" I R 5200 1900 60 
 $EndSheet
 $Sheet
 S 6400 1300 1400 1400
@@ -96,17 +94,11 @@ Wire Wire Line
 Wire Wire Line
 	2600 3600 2700 3600
 Wire Wire Line
-	2600 3700 2700 3700
-Wire Wire Line
 	2600 1500 2700 1500
 Wire Wire Line
 	5200 1500 5300 1500
 Wire Wire Line
 	5200 1700 5300 1700
-Wire Wire Line
-	5200 2000 5300 2000
-Wire Wire Line
-	5200 2100 5300 2100
 Wire Wire Line
 	5200 3200 5300 3200
 Wire Wire Line
@@ -142,15 +134,13 @@ RF_Phase
 Text Label 5300 3800 0    60   ~ 0
 Supply_Current
 Text Label 2700 3600 0    60   ~ 0
-Inverter+
-Text Label 2700 3700 0    60   ~ 0
-Inverter-
-Text Label 5300 2000 0    60   ~ 0
-Inverter+
-Text Label 5300 2100 0    60   ~ 0
 Inverter_Out
 Text Label 7900 1500 0    60   ~ 0
 Inverter_Out
 Text Label 7900 1600 0    60   ~ 0
-Inverter-
+Inverter_Return
+Wire Wire Line
+	5200 1900 5300 1900
+Text Label 5300 1900 0    60   ~ 0
+Inverter_Return
 $EndSCHEMATC
