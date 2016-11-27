@@ -29,6 +29,7 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:wbraun_ic_lib
+LIBS:ionophoney-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
@@ -51,15 +52,6 @@ F1 "power_supply.sch" 60
 F2 "Supply_Current_Sense" I R 2600 1500 60 
 $EndSheet
 $Sheet
-S 1200 3100 1400 1400
-U 5703397E
-F0 "RF" 60
-F1 "rf.sch" 60
-F2 "HI" I R 2600 3300 60 
-F3 "LI" I R 2600 3400 60 
-F4 "Inverter_Out" I R 2600 3600 60 
-$EndSheet
-$Sheet
 S 3800 3100 1400 1400
 U 57033981
 F0 "Control" 60
@@ -77,7 +69,8 @@ F0 "Measurement" 60
 F1 "measurement.sch" 60
 F2 "RF_Current_Sense" I R 5200 1500 60 
 F3 "RF_Current_Phase" I R 5200 1700 60 
-F4 "Inverter_Return" I R 5200 1900 60 
+F4 "Inverter_A" I R 5200 2000 60 
+F5 "Inverter_B" I R 5200 2100 60 
 $EndSheet
 $Sheet
 S 6400 1300 1400 1400
@@ -139,8 +132,14 @@ Text Label 7900 1500 0    60   ~ 0
 Inverter_Out
 Text Label 7900 1600 0    60   ~ 0
 Inverter_Return
-Wire Wire Line
-	5200 1900 5300 1900
-Text Label 5300 1900 0    60   ~ 0
-Inverter_Return
+$Sheet
+S 1200 3100 1400 1400
+U 5703397E
+F0 "RF" 60
+F1 "rf.sch" 60
+F2 "HI" I R 2600 3300 60 
+F3 "LI" I R 2600 3400 60 
+F4 "Inverter_Out" I R 2600 3600 60 
+F5 "Inverter_Return" I R 2600 3700 60 
+$EndSheet
 $EndSCHEMATC

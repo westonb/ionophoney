@@ -1,0 +1,59 @@
+* Z:\home\wbraun\projects\ionophoney\simulation\ltspice\class_DE_bridge_L_test.asc
+XU1 N027 N011 0 0 NC_01 GS61008P
+XU2 N004 N001 N011 N010 NC_02 GS61008P
+V1 N018 0 PULSE(0 {Vg} 0 {Tr} {Tf} {Ton} {Period})
+V2 N022 0 PULSE(0 {Vg} {Delay} {Tr} {Tf} {Ton} {Period})
+V3 N001 0 48 Rser=1m
+C1 N001 0 1µ
+L1 N011 N015 800n
+C2 N011 N015 655p
+R1 N012 N011 6
+C4 N001 N011 {Cshunt}
+C5 N011 0 {Cshunt}
+D1 0 N011 my_SS8PH9
+D2 N011 N001 my_SS8PH9
+XU5 N003 N009 N016 N018 N010 N022 N019 N023 N007 0 LM5113_TRANS thplh=28n tlphl=26.5n thphl=26.5n tlplh=28n
+V6 N007 0 5 Rser=0.01
+R2 N003 N004 {Rh}
+R6 N004 N009 {Rl}
+C8 N010 N016 0.1µ
+R3 N027 N019 {Rh}
+R7 N027 N023 {Rl}
+XU3 N028 N012 0 0 NC_03 GS61008P
+XU4 N005 N002 N012 N013 NC_04 GS61008P
+V4 N026 0 PULSE(0 {Vg} 0 {Tr} {Tf} {Ton} {Period})
+V5 N021 0 PULSE(0 {Vg} {Delay} {Tr} {Tf} {Ton} {Period})
+V7 N002 0 48 Rser=1m
+C3 N002 0 1µ
+C7 N002 N012 {Cshunt}
+C9 N012 0 {Cshunt}
+D3 0 N012 my_SS8PH9
+D4 N012 N002 my_SS8PH9
+XU6 N006 N014 N017 N021 N013 N026 N020 N025 N008 0 LM5113_TRANS thplh=28n tlphl=26.5n thphl=26.5n tlplh=28n
+V8 N008 0 5 Rser=0.01
+R5 N006 N005 {Rh}
+R8 N005 N014 {Rl}
+C10 N013 N017 0.1µ
+R9 N028 N020 {Rh}
+R10 N028 N025 {Rl}
+L2 N024 N012 220n
+C6 N024 N011 0.1µ
+.model D D
+.lib C:\Program Files (x86)\LTC\LTspiceIV\lib\cmp\standard.dio
+.param Tf = 5n
+.param Tr = 5n
+.param Freq = 6.78Meg
+.param Period = {1/Freq}
+.param Ton = {(Period/2-Tr)*Conduction_Cycle}
+.param Toff = {Period/2 }
+.param Delay = {Period/2}
+.tran 0 3u 2u
+.param Conduction_Cycle = 0.75
+.param Vg = 5
+.param Cshunt = 50p
+.param Rh = 0.5
+.param Rl = 0.5
+.lib GaN_LTspice_GS61008P_Release1p27.lib
+.lib Z:\home\wbraun\projects\ionophoney\simulation\ltspice\LM5113.lib
+.backanno
+.end
