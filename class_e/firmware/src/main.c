@@ -396,6 +396,7 @@ void RF_config(){
 	HRTIM_BaseInitTypeDef HRTIM_BaseInitStruct;
 	HRTIM_TimerInitTypeDef HRTIM_TimerInitStructure;  
 	HRTIM_TimerCfgTypeDef HRTIM_TimerWaveStructure;
+	HRTIM_CompareCfgTypeDef HRTIM_CompareStructure;
 
 	/* ----------------------------*/
 	/* HRTIM Global initialization */
@@ -444,7 +445,7 @@ void RF_config(){
 	HRTIM_TimerWaveStructure.DelayedProtectionMode = HRTIM_TIMDELAYEDPROTECTION_DISABLED;
 	HRTIM_TimerWaveStructure.FaultEnable = HRTIM_TIMFAULTENABLE_NONE;
 	HRTIM_TimerWaveStructure.FaultLock = HRTIM_TIMFAULTLOCK_READWRITE;
-	HRTIM_TimerWaveStructure.PushPull = HRTIM_TIMPUSHPULLMODE_ENABLED;
+	HRTIM_TimerWaveStructure.PushPull = HRTIM_TIMPUSHPULLMODE_DISABLED;
 	HRTIM_TimerWaveStructure.ResetTrigger = HRTIM_TIMRESETTRIGGER_NONE;
 	HRTIM_TimerWaveStructure.ResetUpdate = HRTIM_TIMUPDATEONRESET_DISABLED;
 	HRTIM_TimerWaveStructure.UpdateTrigger = HRTIM_TIMUPDATETRIGGER_NONE;
@@ -461,7 +462,27 @@ void RF_config(){
 	HRTIM_TIM_OutputStructure.ChopperModeEnable = HRTIM_OUTPUTCHOPPERMODE_DISABLED;        
 	HRTIM_TIM_OutputStructure.BurstModeEntryDelayed = HRTIM_OUTPUTBURSTMODEENTRY_REGULAR;
 	HRTIM_WaveformOutputConfig(HRTIM1, HRTIM_TIMERINDEX_TIMER_B, HRTIM_OUTPUT_TB1, &HRTIM_TIM_OutputStructure);
+
+	HRTIM_TIM_OutputStructure.SetSource = HRTIM_OUTPUTSET_TIMCMP2;  
+	HRTIM_TIM_OutputStructure.ResetSource = HRTIM_OUTPUTRESET_TIMCMP3; 
+
 	HRTIM_WaveformOutputConfig(HRTIM1, HRTIM_TIMERINDEX_TIMER_B, HRTIM_OUTPUT_TB2, &HRTIM_TIM_OutputStructure);
+
+	//set up the 3 compares
+	HRTIM_CompareStructure.AutoDelayedMode = HRTIM_AUTODELAYEDMODE_REGULAR;
+	HRTIM_CompareStructure.AutoDelayedTimeout = 0;
+	HRTIM_CompareStructure.CompareValue = (PERIOD_6_78MHZ>>1);     //starting value
+	HRTIM_WaveformCompareConfig(HRTIM1, HRTIM_TIMERINDEX_TIMER_B, HRTIM_COMPAREUNIT_1, &HRTIM_CompareStructure);
+
+	HRTIM_CompareStructure.AutoDelayedMode = HRTIM_AUTODELAYEDMODE_REGULAR;
+	HRTIM_CompareStructure.AutoDelayedTimeout = 0;
+	HRTIM_CompareStructure.CompareValue = (PERIOD_6_78MHZ)>>2;     //starting value
+	HRTIM_WaveformCompareConfig(HRTIM1, HRTIM_TIMERINDEX_TIMER_B, HRTIM_COMPAREUNIT_2, &HRTIM_CompareStructure);
+
+	HRTIM_CompareStructure.AutoDelayedMode = HRTIM_AUTODELAYEDMODE_REGULAR;
+	HRTIM_CompareStructure.AutoDelayedTimeout = 0;
+	HRTIM_CompareStructure.CompareValue = (PERIOD_6_78MHZ*3)>>2;     //starting value
+	HRTIM_WaveformCompareConfig(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_3, &HRTIM_CompareStructure);
 
 	//enable timer
 	HRTIM_WaveformCounterStart(HRTIM1, HRTIM_TIMERID_TIMER_B); 
