@@ -1,7 +1,6 @@
 
 #include "stm32f30x.h"
 #include "main.h"
-//#include “core_cm3.h” //needed for data types 
 
 
 

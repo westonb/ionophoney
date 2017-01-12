@@ -13,6 +13,8 @@
 #define MOD_DC_OFFSET 5500
 #define MOD_UPDATE_RATE 0
 #define ADC_SAMPLE_TIME 100
+#define MAX_PHASE_SHIFT 455 //12 bit number degrees/360 * 2^12
+#define PHASE_IDLE_POINT 1809
 
 //exported functions
 

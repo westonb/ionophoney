@@ -189,66 +189,35 @@ void SysTick_Handler(void)
 //now 1.4us
 void HRTIM1_TIMA_IRQHandler(void)
 {
-	int32_t duty_cycle;
-	int32_t error_i_next;
-	static int32_t error;
-	static int32_t error_i;
+	uint32_t comp2;
+  uint32_t comp3;
+  int32_t phase_shift;
 	
-
-	GPIOB->BSRR = GPIO_Pin_6; //toggle LED pin 1 high 
-	//rewrite all calls for direct register writes
-	//template example:
-	//*((volatile uint32_t*)0x12345678) = shit;
-	//HRTIM_ClearITPendingBit(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_TIM_FLAG_REP);
 	HRTIM1->HRTIM_TIMERx[HRTIM_TIMERINDEX_TIMER_A].TIMxICR |= HRTIM_TIM_FLAG_REP;
  	
 	//12 bit ADC readings 
-	//output_current = ADC_GetInjectedConversionValue(ADC1, ADC_InjectedChannel_1); 
-	//output_voltage = ADC_GetInjectedConversionValue(ADC1, ADC_InjectedChannel_2); 
-	//supply_voltage = ADC_GetInjectedConversionValue(ADC1, ADC_InjectedChannel_3); 
-	//audio_voltage = ADC_GetInjectedConversionValue(ADC1, ADC_InjectedChannel_4); 
-	output_voltage = ADC1->JDR2; //read ADC1 injected channel 2
 	audio_voltage = ADC1->JDR4; //read ADC1 injected channel 4
 
-	
-	//IIR lowpass filter for audio input 
-	//audio filtered is scaled by 2**8
-	//audio filtered value is signed
-	//audio filtered ranges between 522240 and -522240 (20 bit bit signed number)
-	//audo voltage is 3.3/2^20 volts
-	audio_filtered = ((audio_filter_k_p*audio_filtered)>>8)+(256-audio_filter_k_p)*((int32_t)audio_voltage-(1<<11));
+  // set new compare values
 
+  //phase shift denoted as  degrees/360 * 2^12
 
-	//target output voltage is volume * 3.3/2^20
-	//output voltage is output_voltage * 59.3/2^12
-	//error is 3.3/2^20 volts
-	error = (((audio_filtered*volume+dc_offset) - (int32_t)output_voltage*4800)); 
-	
-	error_i_next = error+ error_i;
-	if((error_i_next < integral_max) && (error_i_next>integral_min)){
-	error_i = error_i_next;
-	}
+  phase_shift = (MAX_PHASE_SHIFT * (audio_voltage-(1<<11))) >> 12;
+  phase_shift = (phase_shift * PERIOD_6_78MHZ) >> 12;
+
+  //comp 2 is start of phase
+  comp2 = (uint32_t)(phase_shift + ((PERIOD_6_78MHZ * PHASE_IDLE_POINT) >> 12));
+  comp3 = (uint32_t)(phase_shift + ((PERIOD_6_78MHZ * PHASE_IDLE_POINT) >> 12)) + (PERIOD_6_78MHZ>>1); 
+  if(comp3 < PERIOD_6_78MHZ){
+    HRTIM1->HRTIM_TIMERx[HRTIM_TIMERID_TIMER_B].CMP2xR = comp2;
+    HRTIM1->HRTIM_TIMERx[HRTIM_TIMERID_TIMER_B].CMP3xR = comp3;
+  }
+  
+  
 
 	
-	//gains are scaled by a factor of 2^2
-	duty_cycle = ((mod_filter_k_p*((error))>>16) + (mod_filter_k_i*((error_i))>>16));
-
-
-	if(duty_cycle>=BUCK_PWM_MAX){
-
-		//HRTIM_SlaveSetCompare(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_1,  (uint32_t)BUCK_PWM_MAX); /* Duty cycle update */
-    		HRTIM1->HRTIM_TIMERx[HRTIM_TIMERINDEX_TIMER_A].CMP1xR = (uint32_t)BUCK_PWM_MAX;
-	}
-	else if(duty_cycle<=BUCK_PWM_MIN){
-		//HRTIM_SlaveSetCompare(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_1,  (uint32_t)BUCK_PWM_MIN); /* Duty cycle update */
-		HRTIM1->HRTIM_TIMERx[HRTIM_TIMERINDEX_TIMER_A].CMP1xR = (uint32_t)BUCK_PWM_MIN;
-	}
-	else {
-		//HRTIM_SlaveSetCompare(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_1,  (uint32_t)duty_cycle); /* Duty cycle update */
-		HRTIM1->HRTIM_TIMERx[HRTIM_TIMERINDEX_TIMER_A].CMP1xR = (uint32_t)duty_cycle;
-	}
 	
-	GPIOB->BRR = GPIO_Pin_6; //toggle LED pin 1 low
+	
 }
 
 
