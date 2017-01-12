@@ -4,7 +4,7 @@
 #define STM32F334K8
 #include "stm32f30x.h"
 
-#define PERIOD_6_78MHZ 320
+#define PERIOD_6_78MHZ 320*2
 #define BUCK_PWM_PERIOD 10000
 #define BUCK_PWM_MAX 9200
 #define BUCK_PWM_MIN 800

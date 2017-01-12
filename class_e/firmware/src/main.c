@@ -482,7 +482,7 @@ void RF_config(){
 	HRTIM_CompareStructure.AutoDelayedMode = HRTIM_AUTODELAYEDMODE_REGULAR;
 	HRTIM_CompareStructure.AutoDelayedTimeout = 0;
 	HRTIM_CompareStructure.CompareValue = (PERIOD_6_78MHZ*3)>>2;     //starting value
-	HRTIM_WaveformCompareConfig(HRTIM1, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_3, &HRTIM_CompareStructure);
+	HRTIM_WaveformCompareConfig(HRTIM1, HRTIM_TIMERINDEX_TIMER_B, HRTIM_COMPAREUNIT_3, &HRTIM_CompareStructure);
 
 	//enable timer
 	HRTIM_WaveformCounterStart(HRTIM1, HRTIM_TIMERID_TIMER_B); 
